@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Book of Five Rings - Miyamoto Musashi</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    header { background: #2874f0; color: white; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; }
+    .container { display: flex; padding: 20px; gap: 20px; }
+    .book-image img { width: 300px; border-radius: 10px; }
+    .details { max-width: 600px; }
+    .details h2 { margin: 0; color: #333; }
+    .details p { margin: 10px 0; }
+    .price { font-size: 22px; font-weight: bold; color: green; }
+    .related { padding: 20px; }
+    .related h3 { margin-bottom: 15px; }
+    .related-books { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 15px; }
+    .related-books img { width: 100%; border-radius: 8px; transition: transform 0.2s; }
+    .related-books img:hover { transform: scale(1.05); }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>The Book of Five Rings - Miyamoto Musashi</header>
+
+  <div class="container">
+    <div class="book-image">
+      <img src="https://m.media-amazon.com/images/I/71mJNhtlIQL.jpg" alt="Book of Five Rings">
+    </div>
+    <div class="details">
+      <h2>The Book of Five Rings</h2>
+      <p><strong>Author:</strong> Miyamoto Musashi</p>
+      <div class="price" onclick="toggleBuy(this)">₹499</div>
+  
+      <p><strong>Description:</strong> A text on Kenjutsu and martial arts written by legendary samurai Musashi, focusing on strategy and discipline in combat and life.</p>
+    </div>
+  </div>
+
+  <div class="related">
+    <h3>Related Samurai & Strategy Books</h3>
+    <div class="related-books">
+      <a href="33_strategies.html"><img src="https://m.media-amazon.com/images/I/81F14WCV9QL.jpg" alt="33 Strategies of War"></a>
+      <a href="on_war.html"><img src="https://m.media-amazon.com/images/I/71lJk8Vd9gL.jpg" alt="On War"></a>
+      <a href="meditations.html"><img src="https://m.media-amazon.com/images/I/71Q7bJx7a6L.jpg" alt="Meditations"></a>
+    </div>
+  </div>
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+  </script>
+</body>
+</html>

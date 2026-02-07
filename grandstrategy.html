@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Grand Strategy - Strategy Books</title>
+  <style>
+    body {
+      background: #f6f7fa;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      background: #3381ff;
+      color: #fff;
+      padding: 24px 0 18px 0;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 26px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      width: 240px;
+      padding: 18px;
+      text-align: center;
+      margin: 8px;
+      transition: box-shadow 0.4s;
+    }
+    .card img {
+      width: 85px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 8px;
+    }
+    .card a {
+      color: #3381ff;
+      text-decoration: underline;
+    }
+    .book-title {
+      margin: 6px 0 2px 0;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #222;
+    }
+    .book-author {
+      font-size: 0.99em;
+      color: #222;
+      margin-bottom: 2px;
+    }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+    }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  
+  </style>
+</head>
+<body>
+  <div class="header">Grand Strategy - Strategy Books</div>
+  <div class="container">
+
+    <div class="card">
+      <img src="grand_strategy_cover1.jpg" alt="Grand Strategy" />
+      <div class="book-title">Grand Strategy</div>
+      <a href="#">John Smith</a>
+      <div class="price" onclick="toggleBuy(this)">₹499</div>
+    </div>
+
+    <div class="card">
+      <img src="on_war_cover.jpg" alt="On War" />
+      <div class="book-title">On War</div>
+      <a href="#">Carl von Clausewitz</a>
+<div class="price" onclick="toggleBuy(this)">₹599</div>
+    </div>
+    
+    <div class="card">
+      <img src="strategy_liddell_cover.jpg" alt="Strategy - Liddell Hart" />
+      <div class="book-title">Strategy</div>
+      <a href="#">B.H. Liddell Hart</a>
+     <div class="price" onclick="toggleBuy(this)">₹899</div>
+    </div>
+
+    <div class="card">
+      <img src="the_art_of_war_cover.jpg" alt="The Art of War" />
+      <div class="book-title">The Art of War</div>
+      <a href="#">Sun Tzu</a>
+     <div class="price" onclick="toggleBuy(this)">₹499</div>
+    </div>
+
+    <div class="card">
+      <img src="grand_strategy_cover2.jpg" alt="Grand Strategies in History" />
+      <div class="book-title">Grand Strategies in History</div>
+      <a href="#">Anna Thompson</a>
+      <div class="price" onclick="toggleBuy(this)">₹699</div>
+    </div>
+
+  </div>
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+  </script>
+</body>
+</html>

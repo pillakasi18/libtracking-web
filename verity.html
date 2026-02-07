@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verity - LibTracking</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+
+    .product-container {
+      display: flex;
+      padding: 40px;
+      background-color: white;
+      margin: 20px;
+      border-radius: 10px;
+      align-items: center;
+    }
+
+    .product-image {
+      width: 300px;
+      height: auto;
+      margin-right: 40px;
+      border-radius: 8px;
+    }
+
+    .product-details {
+      max-width: 600px;
+    }
+
+    .product-details h1 {
+      margin: 0 0 10px;
+    }
+
+    .product-details p {
+      margin: 5px 0;
+      line-height: 1.6;
+    }
+
+    .price {
+      color: green;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+   
+     .buttons button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      background-color: orange;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+     }
+     
+    .related-section {
+      margin: 40px 20px;
+    }
+
+    .related-section h2 {
+      margin-bottom: 20px;
+    }
+
+    .related-books {
+      display: flex;
+      gap: 20px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+
+    .book-card {
+      width: 150px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .book-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .book-card h4 {
+      margin: 10px 0 5px;
+      font-size: 16px;
+    }
+
+    .book-card p {
+      font-size: 14px;
+      color: green;
+    }
+     .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  
+  </style>
+</head>
+<body>
+
+  <div class="product-container">
+    <img class="product-image" src="https://m.media-amazon.com/images/I/71CkJk6dYCL.jpg" alt="Verity">
+    <div class="product-details">
+      <h1>Verity</h1>
+      <p><strong>by Colleen Hoover</strong></p>
+      <div class="price" onclick="toggleBuy(this)">₹249</div>
+      <p>A psychological thriller filled with chilling twists. A struggling writer is offered the job of completing the works of an injured best-selling author—only to uncover a dark and disturbing autobiography.</p>
+      <div class="buttons">
+        <button>Add to Cart</button>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <h2>Related Fiction Books</h2>
+    <div class="related-books">
+      <a href="friction.html" class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71QKQ9mwV7L.jpg" alt="Atomic Habits">
+        <h4>Atomic Habits</h4>
+        <div class="price" onclick="toggleBuy(this)">₹299</div>
+      </a>
+      <a href="alchemist.html" class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg" alt="The Alchemist">
+        <h4>The Alchemist</h4>
+      <div class="price" onclick="toggleBuy(this)">₹199</div>
+      </a>
+      <a href="silentpatient.html" class="book-card">
+        <img src="https://m.media-amazon.com/images/I/81bPKSs7+CL.jpg" alt="The Silent Patient">
+        <h4>The Silent Patient</h4>
+   <div class="price" onclick="toggleBuy(this)">₹199</div>
+      </a>
+      <a href="girlontrain.html" class="book-card">
+        <img src="https://m.media-amazon.com/images/I/81TR1M7U5cL.jpg" alt="Girl on the Train">
+        <h4>The Girl on the Train</h4>
+        <div class="price" onclick="toggleBuy(this)">₹249</div>
+      </a>
+      <a href="psychologyofmoney.html" class="book-card">
+        <img src="https://m.media-amazon.com/images/I/61-hMfd7NGL.jpg" alt="Psychology of Money">
+        <h4>Psychology of Money</h4>
+        <div class="price" onclick="toggleBuy(this)">₹350</div>
+      </a>
+    </div>
+  </div>
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+  </script>
+
+</body>
+</html>

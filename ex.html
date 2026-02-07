@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LibTracking - Home</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f1f3f6;
+    }
+
+    .navbar {
+      background-color: white;
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .navbar h1 {
+      color: #2874f0;
+      margin: 0;
+    }
+
+    .search-bar input {
+      width: 400px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    .nav-links a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+      background-color: white;
+    }
+
+    .categories a {
+      text-align: center;
+      text-decoration: none;
+      color: #2874f0;
+    }
+
+    .categories img {
+      width: 60px;
+      height: 60px;
+      display: block;
+      margin: 0 auto 5px;
+    }
+
+    .section {
+      margin: 30px;
+    }
+
+    .section h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .books-row {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+    }
+
+    .book-card {
+      width: 150px;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .book-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .book-card h4 {
+      font-size: 14px;
+      margin: 10px 0 5px;
+    }
+
+    .book-card p {
+      font-size: 13px;
+      color: green;
+    }
+
+    footer {
+      background-color: #172337;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    footer div {
+      width: 20%;
+    }
+
+    footer h3 {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    footer a {
+      color: #bbb;
+      font-size: 12px;
+      display: block;
+      margin-bottom: 5px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="navbar">
+    <h1>📚 LibTracking</h1>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for books, authors, categories...">
+    </div>
+    <div class="nav-links">
+      <a href="#">Login</a>
+      <a href="#">My Books</a>
+      <a href="#">Cart</a>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="categories">
+    <a href="#"><img src="fiction_logo.png" alt="Fiction"><span>Fiction</span></a>
+    <a href="#"><img src="technology_logo.png" alt="Technology"><span>Technology</span></a>
+    <a href="#"><img src="novel_logo.png" alt="Novels"><span>Novels</span></a>
+    <a href="#"><img src="business_logo.png" alt="Business"><span>Business</span></a>
+    <a href="#"><img src="comics_logo.png" alt="Comics"><span>Comics</span></a>
+    <a href="#"><img src="politics_logo.png" alt="Politics"><span>Politics</span></a>
+    <a href="#"><img src="competition_logo.png" alt="Competition"><span>Competition</span></a>
+    <a href="#"><img src="engineering_logo.png" alt="Engineering"><span>Engineering</span></a>
+  </div>
+
+  <!-- Book Recommendations -->
+  <div class="section">
+    <h2>Top Picks for You</h2>
+    <div class="books-row">
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/81OdwZ9wO3L._AC_UF1000,1000_QL80_.jpg" alt="Book">
+        <h4>The Silent Patient</h4>
+        <p>₹199</p>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71UwSHSZRnS.jpg" alt="Book">
+        <h4>Atomic Habits</h4>
+        <p>₹289</p>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71g2ednj0JL.jpg" alt="Book">
+        <h4>It Ends With Us</h4>
+        <p>₹350</p>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71E5zB1qbIL.jpg" alt="Book">
+        <h4>Wings of Fire</h4>
+        <p>₹180</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div>
+      <h3>ABOUT</h3>
+      <a href="#">Contact Us</a>
+      <a href="#">About Us</a>
+      <a href="#">Careers</a>
+    </div>
+    <div>
+      <h3>HELP</h3>
+      <a href="#">Payments</a>
+      <a href="#">Shipping</a>
+      <a href="#">Cancellation</a>
+    </div>
+    <div>
+      <h3>POLICY</h3>
+      <a href="#">Return Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Security</a>
+    </div>
+  </footer>
+
+</body>
+</html>

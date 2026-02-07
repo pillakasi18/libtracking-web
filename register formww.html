@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LibTracking - Register</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f1f3f6;
+    }
+    .login-container {
+      width: 750px;
+      height: 400px;
+      margin: 80px auto;
+      display: flex;
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
+      border-radius: 5px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .login-left {
+      width: 40%;
+      background: #2874f0;
+      color: white;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .login-left h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    .login-left p {
+      font-size: 15px;
+    }
+    .login-left img {
+      width: 100%;
+      margin-top: 30px;
+      border-radius: 5px;
+    }
+    .login-right {
+      width: 60%;
+      padding: 40px 30px;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .login-right input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 20px;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      outline: none;
+      font-size: 16px;
+      background: #fff;
+    }
+    .login-right button {
+      margin-top: 30px;
+      background-color: #fb641b;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+    .login-right p {
+      font-size: 12px;
+      color: #878787;
+      margin-top: 10px;
+    }
+    .login-right a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #2874f0;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .terms-links {
+      margin-left: 5px;
+      margin-right: 8px;
+    }
+    .info-msg {
+      color: #d40000;
+      font-size: 13px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      text-align:left;
+    }
+    .success-msg {
+      color: #038900;
+      font-size: 13px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      text-align:left;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <div class="login-left">
+      <h2>Registration Form</h2>
+      <p>Get access to your Orders, Wishlist and Recommendations</p>
+      <img src="https://bing.com/th/id/OIP.8Z3fP-7GxsfcY4jbiVhbiQHaFh?pid=ImgDetMain" alt="login graphic">
+    </div>
+    <div class="login-right">
+      <form id="registerForm">
+        <input type="text" id="emailOrPhone" placeholder="Enter Email or Mobile number" required>
+        <hr style="margin: 25px 0 10px 0;">
+        <p>
+          By continuing, you agree to our
+          <a href="terms and use.html" class="terms-links">Terms and use</a>
+          <a href="privacy2.html" class="terms-links">Privacy policy</a>.
+        </p>
+        <div id="msg" class="info-msg"></div>
+        <button type="submit" id="reqotpBtn">Request OTP</button>
+      </form>
+      <a href="login.html">Already have an account? Login</a>
+    </div>
+  </div>
+
+<script>
+  document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    let val = document.getElementById('emailOrPhone').value.trim();
+    if (!val) {
+      document.getElementById('msg').textContent = 'Please enter email or mobile number';
+      return;
+    }
+    window.location.href = "otp form.html";
+  });
+</script>
+
+</body>
+</html>

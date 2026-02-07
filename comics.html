@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comics Books - LibTracking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+    header {
+      background-color: #2874f0;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .book-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      padding: 15px;
+      text-align: center;
+      transition: 0.3s;
+    }
+    .book-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .book-card img {
+      max-width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .book-card h4 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+      color: #333;
+    }
+    .book-card p {
+      font-size: 16px;
+      color: #555;
+      font-weight: bold;
+    }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>Comics Books</header>
+
+  <div class="container">
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/81bRNTXw3-L.jpg" alt="Batman">
+      <h4>Batman: Year One</h4>
+      <div class="price" onclick="toggleBuy(this)">₹499</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/71odYYdvrvL.jpg" alt="Superman">
+      <h4>Superman: Red Son</h4>
+    <div class="price" onclick="toggleBuy(this)">₹550</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/91y+gt5MKwL.jpg" alt="Wonder Woman">
+      <h4>Wonder Woman: Warbringer</h4>
+     <div class="price" onclick="toggleBuy(this)">₹439</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/91sSotz+q9L.jpg" alt="Spider-Man">
+      <h4>The Amazing Spider-Man</h4>
+      <div class="price" onclick="toggleBuy(this)">₹499</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/81tKcnAysdL.jpg" alt="Avengers">
+      <h4>Avengers: Infinity</h4>
+    <div class="price" onclick="toggleBuy(this)">₹599</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/91QlttAxwfL.jpg" alt="Iron Man">
+      <h4>Iron Man: Extremis</h4>
+     <div class="price" onclick="toggleBuy(this)">₹520</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/91t1R-5Yt6L.jpg" alt="Naruto">
+      <h4>Naruto Vol.1</h4>
+    <div class="price" onclick="toggleBuy(this)">₹320</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/91v4iLPjFvL.jpg" alt="One Piece">
+      <h4>One Piece Vol.1</h4>
+      <div class="price" onclick="toggleBuy(this)">₹380</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/91N4Rcz9qzL.jpg" alt="Dragon Ball Z">
+      <h4>Dragon Ball Z Vol.1</h4>
+     <div class="price" onclick="toggleBuy(this)">₹400</div>
+    </div>
+
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/81OwvDyS08L.jpg" alt="Death Note">
+      <h4>Death Note Vol.1</h4>
+     <div class="price" onclick="toggleBuy(this)">₹300</div>
+    </div>
+  </div>
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+  </script>
+</body>
+</html>

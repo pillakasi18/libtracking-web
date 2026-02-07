@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Art of War - Related Books</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 0; }
+    header { background: #2874f0; color: white; padding: 15px; text-align: center; font-size: 24px; font-weight: bold; }
+    .books-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 20px; padding: 20px; }
+    .book-card { background: white; padding: 15px; border-radius: 8px; text-align: center; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .book-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 6px; transition: transform 0.2s; }
+    .book-card img:hover { transform: scale(1.05); }
+    .book-card h4 { margin: 10px 0; }
+    .book-card p { color: green; font-weight: bold; }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  
+  </style>
+</head>
+<body>
+  <header>Art of War - Strategy Books</header>
+
+  <div class="books-row">
+    <div class="book-card">
+      <a href="the_prince.html"><img src="https://m.media-amazon.com/images/I/81sw5A7V2XL.jpg" alt="The Prince"></a>
+      <h4>The Prince</h4>
+      <a href="prince.html">prince</a>
+
+      <div class="price" onclick="toggleBuy(this)">₹499</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="on_war.html"><img src="https://m.media-amazon.com/images/I/71lJk8Vd9gL.jpg" alt="On War"></a>
+     
+      <h4>On War</h4>
+       <a href="war1.html">war</a>
+      <div class="price" onclick="toggleBuy(this)">₹599</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="33_strategies.html"><img src="https://m.media-amazon.com/images/I/81F14WCV9QL.jpg" alt="The 33 Strategies of War"></a>
+      <h4>The 33 Strategies of War</h4>
+      <a href="strtergies.html">stratergies</a>
+   <div class="price" onclick="toggleBuy(this)">₹799</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="meditations.html"><img src="https://m.media-amazon.com/images/I/71Q7bJx7a6L.jpg" alt="Meditations"></a>
+      <h4>Meditations</h4>
+      <a href="meditation.html">meditation</a>
+     <div class="price" onclick="toggleBuy(this)">₹299</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="five_rings.html"><img src="https://m.media-amazon.com/images/I/81K3lCJnBJL.jpg" alt="Book of Five Rings"></a>
+      <h4>Book of Five Rings</h4>
+      <a href="fiverings.html">fiverings</a>
+   <div class="price" onclick="toggleBuy(this)">₹399</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="leadership_war.html"><img src="https://m.media-amazon.com/images/I/81qQhQ4rZVL.jpg" alt="Leadership in War"></a>
+      <h4>Leadership in War</h4>
+      <a href="leadership.html">leadership</a>
+     <div class="price" onclick="toggleBuy(this)">₹699</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="grand_strategy.html"><img src="https://m.media-amazon.com/images/I/71E2e8pWsIL.jpg" alt="Grand Strategy"></a>
+      <h4>Grand Strategy</h4>
+      <a href="grandstrategy.html">grandstrategy</a>
+   <div class="price" onclick="toggleBuy(this)">₹550</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="utility_force.html"><img src="https://m.media-amazon.com/images/I/81l1D-tVZHL.jpg" alt="The Utility of Force"></a>
+      <h4>The Utility of Force</h4>
+      <a href="utility.html">utility</a>
+     <div class="price" onclick="toggleBuy(this)">₹620</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="strategy_liddell.html"><img src="https://m.media-amazon.com/images/I/71FrhhXzHHL.jpg" alt="Strategy - Liddell Hart"></a>
+      <h4>Strategy</h4>
+      <a href="strategy.html">strategy</a>
+   <div class="price" onclick="toggleBuy(this)">₹570</div>
+  
+    </div>
+    <div class="book-card">
+      <a href="hind_swaraj.html"><img src="https://m.media-amazon.com/images/I/71iP5Fw6FSL.jpg" alt="Hind Swaraj"></a>
+      <h4>Hind Swaraj</h4>
+      <a href="swaraj.html">swaraj</a>
+   <div class="price" onclick="toggleBuy(this)">₹199</div>
+  
+    </div>
+  </div>
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+  </script>
+</body>
+</html>

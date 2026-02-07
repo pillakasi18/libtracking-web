@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - LibTracking</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f6f7fa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      color: #3381ff;
+      margin-bottom: 24px;
+      font-weight: bold;
+    }
+    input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin: 10px 0 20px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    button {
+      background-color: #f26522;
+      border: none;
+      color: white;
+      padding: 12px 0;
+      width: 100%;
+      border-radius: 6px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #d4531d;
+    }
+    .links {
+      margin-top: 16px;
+      font-size: 0.9em;
+      color: #666;
+    }
+    .links a {
+      color: #3381ff;
+      text-decoration: none;
+      margin: 0 5px;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2>Login to LibTracking</h2>
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <div class="links">
+      <a href="register formww.html">Register</a> | 
+      <a href="forgot.html">Forgot Password?</a>
+    </div>
+  </div>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      // Fetch form values
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if (!email || !password) {
+        alert('Please fill in both fields');
+        return;
+      }
+
+      // Example login logic (replace with real authentication)
+      alert('Login successful');
+      window.location.href = 'index2.html'; // Redirect to homepage after login
+    }
+  </script>
+</body>
+</html>

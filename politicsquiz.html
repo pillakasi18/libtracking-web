@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Politics Quiz - LibTracking</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h2 {
+    color: #3381ff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .question-block {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  }
+  .question-block p {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .correct-label {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect-label {
+    color: red;
+    font-weight: bold;
+  }
+  #submitBtn {
+    display: block;
+    margin: 30px auto;
+    background: #3381ff;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background: #0056b3;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #3381ff;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Politics Quiz - 20 Questions</h2>
+<div id="quiz"></div>
+<button id="submitBtn">Submit Quiz</button>
+<div id="result"></div>
+
+<script>
+const quizData = [
+  { question: "Who wrote 'The Republic'?", choices: ["Plato", "Aristotle", "Socrates", "Cicero"], answer: "Plato" },
+  { question: "Who is the current President of the USA (2025)?", choices: ["Donald Trump", "Joe Biden", "Barack Obama", "George Bush"], answer: "Donald Trump" },
+  { question: "What is the main function of the United Nations?", choices: ["Maintaining international peace", "Regulating commerce", "Controlling monetary policy", "Managing environmental laws"], answer: "Maintaining international peace" },
+  { question: "In which year was the United States Declaration of Independence signed?", choices: ["1776", "1789", "1492", "1804"], answer: "1776" },
+  { question: "Who was the first female Prime Minister of the United Kingdom?", choices: ["Margaret Thatcher", "Theresa May", "Angela Merkel", "Indira Gandhi"], answer: "Margaret Thatcher" },
+  { question: "Which political ideology advocates for minimal government interference?", choices: ["Libertarianism", "Socialism", "Communism", "Fascism"], answer: "Libertarianism" },
+  { question: "What is the name of the legislative branch of the U.S. government?", choices: ["Congress", "Supreme Court", "Executive Branch", "Senate"], answer: "Congress" },
+  { question: "Who was the principal author of the U.S. Constitution?", choices: ["James Madison", "Thomas Jefferson", "George Washington", "Alexander Hamilton"], answer: "James Madison" },
+  { question: "The 'Cold War' was mainly between which two countries?", choices: ["USA and USSR", "USA and China", "UK and Germany", "France and Italy"], answer: "USA and USSR" },
+  { question: "Which country is known for the political ideology called 'Juche'?", choices: ["North Korea", "China", "Vietnam", "Cuba"], answer: "North Korea" },
+  { question: "Who is considered the father of modern political science?", choices: ["Niccolò Machiavelli", "John Locke", "Jean-Jacques Rousseau", "Thomas Hobbes"], answer: "Niccolò Machiavelli" },
+  { question: "The 'Bill of Rights' refers to:", choices: ["First ten amendments to the U.S. Constitution", "UK parliamentary laws", "French Declaration of the Rights of Man", "United Nations Charters"], answer: "First ten amendments to the U.S. Constitution" },
+  { question: "What is the term for a system where power is divided between national and state governments?", choices: ["Federalism", "Monarchy", "Oligarchy", "Socialism"], answer: "Federalism" },
+  { question: "Who was the first President of independent India?", choices: ["Rajendra Prasad", "Jawaharlal Nehru", "Mahatma Gandhi", "Sardar Patel"], answer: "Rajendra Prasad" },
+  { question: "Which U.S. amendment granted women the right to vote?", choices: ["19th Amendment", "15th Amendment", "1st Amendment", "21st Amendment"], answer: "19th Amendment" },
+  { question: "Who led the civil rights movement in the USA during the 1960s?", choices: ["Martin Luther King Jr.", "Malcolm X", "Rosa Parks", "Frederick Douglass"], answer: "Martin Luther King Jr." },
+  { question: "What is 'gerrymandering'?", choices: ["Manipulation of electoral district boundaries", "Voter fraud", "A type of election", "Political corruption"], answer: "Manipulation of electoral district boundaries" },
+  { question: "Which political party does Joe Biden belong to?", choices: ["Democratic Party", "Republican Party", "Libertarian Party", "Green Party"], answer: "Democratic Party" },
+  { question: "The Magna Carta was signed in which year?", choices: ["1215", "1492", "1776", "1066"], answer: "1215" },
+  { question: "Who is currently the Chancellor of Germany (2025)?", choices: ["Olaf Scholz", "Angela Merkel", "Frank-Walter Steinmeier", "Markus Söder"], answer: "Olaf Scholz" }
+];
+
+const container = document.getElementById('quiz');
+
+function loadQuestions() {
+  container.innerHTML = "";
+  quizData.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+
+    let choicesHTML = q.choices.map(choice => 
+      `<label><input type="radio" name="q${index}" value="${choice}"> ${choice}</label>`
+    ).join('');
+    div.innerHTML = `<p>${index + 1}. ${q.question}</p>${choicesHTML}`;
+    container.appendChild(div);
+  });
+}
+
+document.getElementById('submitBtn').onclick = () => {
+  let score = 0;
+  document.querySelectorAll('.question-block').forEach(qblock => {
+    qblock.querySelectorAll('label').forEach(lbl => {
+      lbl.classList.remove('correct-label', 'incorrect-label');
+      lbl.style.color = '';
+    });
+  });
+
+  quizData.forEach((q, index) => {
+    const labels = document.querySelectorAll(`input[name="q${index}"]`);
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    labels.forEach(radio => { radio.disabled = true; });
+    if (selected) {
+      const label = selected.parentElement;
+      if (selected.value === q.answer) {
+        score++;
+        label.classList.add('correct-label');
+      } else {
+        label.classList.add('incorrect-label');
+        labels.forEach(r => {
+          if (r.value === q.answer) {
+            r.parentElement.classList.remove('incorrect-label');
+            r.parentElement.classList.add('correct-label');
+          }
+        });
+      }
+    } else {
+      labels.forEach(r => {
+        if (r.value === q.answer) {
+          r.parentElement.classList.add('correct-label');
+        }
+      });
+    }
+  });
+  document.getElementById('result').innerText = `Your Score: ${score} / ${quizData.length}`;
+  document.getElementById('submitBtn').disabled = true;
+};
+
+loadQuestions();
+</script>
+<button id="submitBtn">Submit Quiz</button>
+<div id="result"></div>
+</body>
+</html>

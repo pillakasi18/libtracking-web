@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Forgot Password - LibTracking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f6f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .forgot-container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+      width: 360px;
+      text-align: center;
+    }
+    h2 {
+      color: #3381ff;
+      margin-bottom: 24px;
+      font-weight: bold;
+    }
+    input[type="email"] {
+      width: 90%;
+      padding: 12px 10px;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 95%;
+      padding: 12px;
+      background: #f26522;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1.1em;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #b94b14;
+    }
+    .info-msg {
+      margin-top: 14px;
+      font-size: 1em;
+      color: #018a01;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="forgot-container">
+    <h2>Forgot Password</h2>
+    <input type="email" id="email" placeholder="Enter your registered email" />
+    <button onclick="requestReset()">Send Reset Link</button>
+    <div class="info-msg" id="infoMsg"></div>
+  </div>
+
+  <script>
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function requestReset() {
+      const email = document.getElementById('email').value.trim();
+      const infoMsg = document.getElementById('infoMsg');
+      infoMsg.textContent = '';
+      if (!isValidEmail(email)) {
+        infoMsg.style.color = 'red';
+        infoMsg.textContent = 'Please enter a valid email address.';
+        return;
+      }
+      // This is a placeholder; replace with call to your backend API for password reset email
+      infoMsg.style.color = '#018a01';
+      infoMsg.textContent = 'If an account exists with this email, a reset link has been sent!';
+    }
+  </script>
+
+</body>
+</html>

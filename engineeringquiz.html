@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>CSE & Branches Quiz - LibTracking</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h2 {
+    color: #3381ff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .question-block {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+  .question-block p {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .correct-label {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect-label {
+    color: red;
+    font-weight: bold;
+  }
+  #submitBtn {
+    display: block;
+    margin: 30px auto;
+    background: #3381ff;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background: #0056b3;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #3381ff;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Computer Science & Engineering Quiz - 20 Hard Questions</h2>
+<div id="quiz"></div>
+<button id="submitBtn">Submit Quiz</button>
+<div id="result"></div>
+
+<script>
+const quizData = [
+  // Data Structures & Algorithms
+  { question: "What is the time complexity of searching for an element in a balanced binary search tree?", choices: ["O(log n)", "O(n)", "O(1)", "O(n log n)"], answer: "O(log n)" },
+  { question: "Which data structure is mainly used for implementing recursion?", choices: ["Stack", "Queue", "Heap", "Linked List"], answer: "Stack" },
+  { question: "What sorting algorithm is considered the most efficient in average case for large data sets?", choices: ["Quick Sort", "Bubble Sort", "Insertion Sort", "Selection Sort"], answer: "Quick Sort" },
+
+  // Operating Systems
+  { question: "Which scheduling algorithm may cause starvation?", choices: ["Shortest Job First", "Round Robin", "First Come First Serve", "Priority Scheduling"], answer: "Priority Scheduling" },
+  { question: "What is a 'deadlock' in OS?", choices: ["Processes waiting indefinitely for resources", "Memory overload", "CPU overheating", "File corruption"], answer: "Processes waiting indefinitely for resources" },
+
+  // Databases
+  { question: "In a relational database, what does 'ACID' stand for?", choices: ["Atomicity, Consistency, Isolation, Durability", "Accuracy, Consistency, Independence, Dependency", "Atomicity, Control, Independence, Data", "Attribute, Consistency, Isolation, Dependency"], answer: "Atomicity, Consistency, Isolation, Durability" },
+  { question: "Which normal form eliminates transitive dependency?", choices: ["3NF", "1NF", "2NF", "BCNF"], answer: "3NF" },
+
+  // Networking
+  { question: "Which protocol is used for secure communication over the internet?", choices: ["HTTPS", "HTTP", "FTP", "SMTP"], answer: "HTTPS" },
+  { question: "What does IP address stand for?", choices: ["Internet Protocol Address", "Internet Provider Address", "Internal Protocol Address", "Internet Private Address"], answer: "Internet Protocol Address" },
+
+  // Software Engineering
+  { question: "Which software development life cycle model is iterative?", choices: ["Agile", "Waterfall", "V-Model", "Spiral"], answer: "Agile" },
+  { question: "In UML, what does a use case diagram represent?", choices: ["System functionality and actors", "Class relationships", "Sequence of events", "Deployment"], answer: "System functionality and actors" },
+
+  // Computer Architecture
+  { question: "What is the function of the ALU in a CPU?", choices: ["Perform arithmetic and logical operations", "Store data", "Control input and output", "Manage memory"], answer: "Perform arithmetic and logical operations" },
+  { question: "Which memory is the fastest?", choices: ["Registers", "Cache", "RAM", "Hard Disk"], answer: "Registers" },
+
+  // More Advanced DSA
+  { question: "Which data structure allows insertion and deletion in O(1) time and maintains insertion order?", choices: ["LinkedHashSet", "TreeSet", "HashMap", "PriorityQueue"], answer: "LinkedHashSet" },
+  { question: "The Master Theorem is used to solve recurrence relations common in which algorithm type?", choices: ["Divide and Conquer", "Dynamic Programming", "Greedy", "Backtracking"], answer: "Divide and Conquer" },
+
+  // More Networking
+  { question: "What type of address is FF-FF-FF-FF-FF-FF in networking?", choices: ["Broadcast MAC address", "Unicast address", "Multicast address", "Local address"], answer: "Broadcast MAC address" },
+  { question: "Which layer of the OSI model is responsible for end-to-end communication?", choices: ["Transport", "Network", "Data Link", "Session"], answer: "Transport" },
+
+  // More Software Engineering
+  { question: "What is 'refactoring'?", choices: ["Improving code structure without changing behavior", "Adding new features", "Removing bugs", "Testing software"], answer: "Improving code structure without changing behavior" },
+  { question: "What kind of testing is done without knowledge of internal code?", choices: ["Black box testing", "White box testing", "Unit testing", "Integration testing"], answer: "Black box testing" }
+];
+
+const container = document.getElementById('quiz');
+const scoreDiv = document.getElementById('result');
+const submitBtn = document.getElementById('submitBtn');
+
+function loadQuiz() {
+  container.innerHTML = '';
+  quizData.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+
+    let choicesHTML = q.choices.map(choice =>
+      `<label><input type="radio" name="q${index}" value="${choice}"> ${choice}</label>`
+    ).join('');
+    div.innerHTML = `<p>${index + 1}. ${q.question}</p>${choicesHTML}`;
+    container.appendChild(div);
+  });
+}
+
+submitBtn.onclick = () => {
+  let score = 0;
+  document.querySelectorAll('.question-block').forEach(qblock => {
+    qblock.querySelectorAll('label').forEach(lbl => {
+      lbl.classList.remove('correct-label', 'incorrect-label');
+      lbl.style.color = '';
+    });
+  });
+  quizData.forEach((q, index) => {
+    const labels = document.querySelectorAll(`input[name="q${index}"]`);
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    labels.forEach(r => r.disabled = true);
+    if (selected) {
+      const label = selected.parentElement;
+      if (selected.value === q.answer) {
+        score++;
+        label.classList.add('correct-label');
+      } else {
+        label.classList.add('incorrect-label');
+        labels.forEach(r => {
+          if (r.value === q.answer) {
+            r.parentElement.classList.remove('incorrect-label');
+            r.parentElement.classList.add('correct-label');
+          }
+        });
+      }
+    } else {
+      labels.forEach(r => {
+        if (r.value === q.answer) {
+          r.parentElement.classList.add('correct-label');
+        }
+      });
+    }
+  });
+  scoreDiv.innerText = `Your Score: ${score} / ${quizData.length}`;
+  submitBtn.disabled = true;
+};
+
+loadQuiz();
+</script>
+
+</body>
+</html>

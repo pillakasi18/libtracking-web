@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Comics Quiz - LibTracking</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h2 {
+    color: #3381ff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .question-block {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  }
+  .question-block p {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  /* highlight correct and incorrect labels */
+  .correct-label {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect-label {
+    color: red;
+    font-weight: bold;
+  }
+  #submitBtn {
+    display: block;
+    margin: 30px auto;
+    background: #3381ff;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background: #0056b3;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #3381ff;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Comics Quiz - 20 Questions</h2>
+<div id="quiz"></div>
+<button id="submitBtn">Submit Quiz</button>
+<div id="result"></div>
+
+<script>
+const quizData = [
+  { question: "Superman's home planet?", choices: ["Krypton", "Earth", "Mars", "Vulcan"], answer: "Krypton" },
+  { question: "Who created Batman?", choices: ["Bob Kane", "Stan Lee", "Jack Kirby", "Alan Moore"], answer: "Bob Kane" },
+  { question: "Which hero is known as the 'Merc with a Mouth'?", choices: ["Deadpool", "Spider-Man", "Wolverine", "Iron Man"], answer: "Deadpool" },
+  { question: "What is Thor's hammer called?", choices: ["Mjolnir", "Stormbreaker", "Gungnir", "Hammer of Justice"], answer: "Mjolnir" },
+  { question: "Who is the archetype of the green superhero?", choices: ["The Hulk", "Green Lantern", "Aquaman", "Green Arrow"], answer: "Green Lantern" },
+  { question: "In which comic universe does 'The Amazing Spider-Man' belong?", choices: ["Marvel", "DC", "Dark Horse", "Image"], answer: "Marvel" },
+  { question: "Who is the fastest superhero?", choices: ["Flash", "Superman", "Quicksilver", "Green Lantern"], answer: "Flash" },
+  { question: "Which character is not a Marvel superhero?", choices: ["Captain America", "Iron Man", "Batman", "Hawkeye"], answer: "Batman" },
+  { question: "What color is the Hulk's skin?", choices: ["Green", "Red", "Blue", "Purple"], answer: "Green" },
+  { question: "Which hero is known as the 'Scarlet Speedster'?", choices: ["The Flash", "Quicksilver", "Superman", "Green Lantern"], answer: "The Flash" },
+  { question: "Who is the leader of the Avengers?", choices: ["Captain America", "Iron Man", "Thor", "Hulk"], answer: "Captain America" },
+  { question: "Which comic hero wields the 'Lasso of Truth'?", choices: ["Wonder Woman", "Supergirl", "Hawkgirl", "Batgirl"], answer: "Wonder Woman" },
+  { question: "Who is the arch-enemy of Batman?", choices: ["Joker", "Lex Luthor", "Green Goblin", "Doctor Doom"], answer: "Joker" },
+  { question: "What is the name of the city where Spider-Man operates?", choices: ["Gotham", "Metropolis", "New York", "Central City"], answer: "New York" },
+  { question: "Which hero is known for the phrase 'It's clobberin' time'?", choices: ["The Thing", "Hulk", "Captain America", "Spider-Man"], answer: "The Thing" },
+  { question: "Who is the female member of the X-Men with the ability to control fire?", choices: ["Jean Grey", "Jubilee", "Phoenix", "Emma Frost"], answer: "Jubilee" },
+  { question: "Which hero can turn invisible?", choices: ["Ant-Man", "The Invisible Woman", "Daredevil", "Hawkeye"], answer: "The Invisible Woman" },
+  { question: "Who is the ruler of Wakanda?", choices: ["Black Panther", "Shuri", "Killmonger", "M'Baku"], answer: "Black Panther" },
+  { question: "What is the name of the wizard in Doctor Strange?", choices: ["Wong", "Ancient One", "Dormammu", "Kaecilius"], answer: "Wong" },
+  { question: "Which villain is known as 'The Joker’s sidekick'?", choices: ["Harley Quinn", "Poison Ivy", "Catwoman", "Riddler"], answer: "Harley Quinn" }
+];
+
+const container = document.getElementById('quiz');
+
+function loadQuestions() {
+  container.innerHTML = "";
+  quizData.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+
+    let choicesHTML = q.choices.map(choice =>
+      `<label><input type="radio" name="q${index}" value="${choice}"> ${choice}</label>`
+    ).join('');
+    div.innerHTML = `<p>${index + 1}. ${q.question}</p>${choicesHTML}`;
+    container.appendChild(div);
+  });
+}
+
+document.getElementById('submitBtn').onclick = () => {
+  let score = 0;
+  // First, remove previous highlights
+  document.querySelectorAll('.question-block').forEach(qblock => {
+    qblock.querySelectorAll('label').forEach(lbl => {
+      lbl.classList.remove('correct-label', 'incorrect-label');
+      lbl.style.color = '';
+    });
+  });
+
+  // Evaluate answers and highlight
+  quizData.forEach((q, index) => {
+    const labels = document.querySelectorAll(`input[name="q${index}"]`);
+    const selected = document.querySelector(`input[name="q${index}]:checked`);
+    labels.forEach(radio => {
+      radio.disabled = true;
+    });
+    if (selected) {
+      const label = selected.parentElement;
+      if (selected.value === q.answer) {
+        score++;
+        label.classList.add('correct-label');
+      } else {
+        label.classList.add('incorrect-label');
+        // Highlight the correct answer
+        labels.forEach(r => {
+          if (r.value === q.answer) {
+            r.parentElement.classList.remove('incorrect-label');
+            r.parentElement.classList.add('correct-label');
+          }
+        });
+      }
+    } else {
+      // No answer selected: highlight correct answer
+      labels.forEach(r => {
+        if (r.value === q.answer) {
+          r.parentElement.classList.add('correct-label');
+        }
+      });
+    }
+  });
+  document.getElementById('result').innerText = `Your Score: ${score} / ${quizData.length}`;
+  document.getElementById('submitBtn').disabled = true;
+};
+loadQuestions();
+</script>
+</body>
+</html>

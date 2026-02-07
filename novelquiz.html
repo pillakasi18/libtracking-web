@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Novel Quiz - LibTracking</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #3381ff;
+  }
+  .question-block {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+  p {
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  input[type="radio"]:disabled + span.correct {
+    color: green;
+    font-weight: bold;
+  }
+  input[type="radio"]:disabled + span.incorrect {
+    color: red;
+    font-weight: bold;
+  }
+  #submitBtn {
+    display: block;
+    margin: 30px auto;
+    background: #3381ff;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background: #0056b3;
+  }
+  #score {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #3381ff;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Novel Quiz - 20 Questions</h2>
+<div id="quiz"></div>
+<button id="submitBtn">Submit Quiz</button>
+<div id="score"></div>
+
+<script>
+const quizData = [
+  { question: "Who wrote 'Pride and Prejudice'?", choices: ["Jane Austen", "Emily Brontë", "Charles Dickens", "Mark Twain"], answer: "Jane Austen" },
+  { question: "In which novel does the character 'Atticus Finch' appear?", choices: ["To Kill a Mockingbird", "The Great Gatsby", "Moby Dick", "1984"], answer: "To Kill a Mockingbird" },
+  { question: "What is the main theme of 'The Great Gatsby'?", choices: ["The American Dream", "Love", "War", "Science"], answer: "The American Dream" },
+  { question: "Who is the author of 'The Catcher in the Rye'?", choices: ["J.D. Salinger", "George Orwell", "J.K. Rowling", "Leo Tolstoy"], answer: "J.D. Salinger" },
+  { question: "Which novel features the 'Hobbits'?", choices: ["The Lord of the Rings", "The Hobbit", "Harry Potter", "Game of Thrones"], answer: "The Hobbit" },
+  { question: "Who wrote 'Crime and Punishment'?", choices: ["Fyodor Dostoevsky", "Leo Tolstoy", "Anton Chekhov", "Ivan Turgenev"], answer: "Fyodor Dostoevsky" },
+  { question: "In 'Moby Dick', what is the name of the whale?", choices: ["Moby Dick", "Jaws", "Shamu", "Dory"], answer: "Moby Dick" },
+  { question: "Who is the author of 'War and Peace'?", choices: ["Leo Tolstoy", "Anton Chekhov", "Fyodor Dostoevsky", "George Eliot"], answer: "Leo Tolstoy" },
+  { question: "Which novel's protagonist is a young orphan named Oliver?", choices: ["Oliver Twist", "Great Expectations", "David Copperfield", "Little Dorrit"], answer: "Oliver Twist" },
+  { question: "Who wrote 'Brave New World'?", choices: ["Aldous Huxley", "George Orwell", "Philip K. Dick", "Isaac Asimov"], answer: "Aldous Huxley" },
+  { question: "In 'Jane Eyre', who is the love interest of Jane?", choices: ["Mr. Rochester", "Mr. Darcy", "Mr. Collins", "Mr. Bennet"], answer: "Mr. Rochester" },
+  { question: "Who is the author of 'The Brothers Karamazov'?", choices: ["Fyodor Dostoevsky", "Leo Tolstoy", "Anton Chekhov", "Ivan Turgenev"], answer: "Fyodor Dostoevsky" },
+  { question: "Which novel features a detective named Hercule Poirot?", choices: ["Murder on the Orient Express", "The Hound of the Baskervilles", "The Maltese Falcon", "The Big Sleep"], answer: "Murder on the Orient Express" },
+  { question: "Who wrote 'The Odyssey'?", choices: ["Homer", "Virgil", "Ovid", "Euripides"], answer: "Homer" },
+  { question: "In 'The Count of Monte Cristo', who is Edmond Dantes?", choices: ["A wrongly imprisoned man", "A thief", "A detective", "An orphan"], answer: "A wrongly imprisoned man" },
+  { question: "Who is the author of 'Les Misérables'?", choices: ["Victor Hugo", "Gustave Flaubert", "Honoré de Balzac", "Emile Zola"], answer: "Victor Hugo" },
+  { question: "Which novel is set during the French Revolution?", choices: ["Les Misérables", "The Scarlet Pimpernel", "A Tale of Two Cities", "The Count of Monte Cristo"], answer: "A Tale of Two Cities" },
+  { question: "Who wrote 'The Old Man and the Sea'?", choices: ["Ernest Hemingway", "F. Scott Fitzgerald", "William Faulkner", "John Steinbeck"], answer: "Ernest Hemingway" },
+  { question: "In which book does a character called 'Huck Finn' appear?", choices: ["The Adventures of Tom Sawyer", "The Adventures of Huckleberry Finn", "Moby Dick", "Great Expectations"], answer: "The Adventures of Huckleberry Finn" },
+  { question: "Who wrote 'The Lord of the Rings'?", choices: ["J.R.R. Tolkien", "C.S. Lewis", "George R.R. Martin", "Tolkien"], answer: "J.R.R. Tolkien" }
+];
+
+const container = document.getElementById('quiz');
+const scoreDiv = document.getElementById('score');
+const submitBtn = document.getElementById('submitBtn');
+
+function loadQuestions() {
+  container.innerHTML = '';
+  quizData.forEach((q, index) => {
+    const questionDiv = document.createElement('div');
+    questionDiv.className = 'question-block';
+
+    let choicesHTML = q.choices.map(choice => {
+      return `<label><input type="radio" name="q${index}" value="${choice}"><span>${choice}</span></label>`;
+    }).join('');
+
+    questionDiv.innerHTML = `<p>${index + 1}. ${q.question}</p>${choicesHTML}`;
+    container.appendChild(questionDiv);
+  });
+}
+
+submitBtn.addEventListener('click', () => {
+  let score = 0;
+
+  quizData.forEach((q, index) => {
+    const selectedInput = document.querySelector(`input[name="q${index}"]:checked`);
+    const answers = container.querySelectorAll(`.question-block:nth-child(${index + 1}) label span`);
+
+    // Disable all inputs after submission
+    container.querySelectorAll(`input[name="q${index}"]`).forEach(input => input.disabled = true);
+
+    if (selectedInput) {
+      if (selectedInput.value === q.answer) {
+        score++;
+      }
+    }
+    // Highlight correct and incorrect answers
+    answers.forEach(span => {
+      if (span.textContent === q.answer) {
+        span.classList.add('correct');
+      } else {
+        if (span.previousElementSibling.checked) {
+          span.classList.add('incorrect');
+        }
+      }
+    });
+  });
+
+  scoreDiv.textContent = `Your Score: ${score} / ${quizData.length}`;
+
+  // Disable submit button after submission
+  submitBtn.disabled = true;
+});
+
+loadQuestions();
+</script>
+
+</body>
+</html>

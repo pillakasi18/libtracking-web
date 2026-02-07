@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Competition Quiz - LibTracking</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h2 {
+    color: #3381ff;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .question-block {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  }
+  .question-block p {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .correct-label {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect-label {
+    color: red;
+    font-weight: bold;
+  }
+  #submitBtn {
+    display: block;
+    margin: 30px auto;
+    background: #3381ff;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background: #0056b3;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #3381ff;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Competition Quiz - 20 Questions</h2>
+<div id="quiz"></div>
+<button id="submitBtn">Submit Quiz</button>
+<div id="result"></div>
+
+<script>
+const quizData = [
+  { question: "Best book for IIT JEE Math?", choices: ["Cengage", "NCERT", "HC Verma", "Modern ABC"], answer: "Cengage" },
+  { question: "Who wrote 'Word Power Made Easy'?", choices: ["Norman Lewis", "Wren & Martin", "Stephen King", "RS Aggarwal"], answer: "Norman Lewis" },
+  { question: "What is the full form of IIT?", choices: ["Indian Institute of Technology", "International Institute of Technology", "Indian Institute of Teaching", "International Institute of Teaching"], answer: "Indian Institute of Technology" },
+  { question: "Which exam is known as UPSC?", choices: ["Union Public Service Commission", "University Public Service Commission", "Union Private Service Commission", "Universal Public Service Commission"], answer: "Union Public Service Commission" },
+  { question: "Which subject is HC Verma famous for?", choices: ["Physics", "Chemistry", "Mathematics", "Biology"], answer: "Physics" },
+  { question: "What is the main focus of NEET examination?", choices: ["Medical admissions", "Engineering admissions", "Law admissions", "Business admissions"], answer: "Medical admissions" },
+  { question: "Who is the author of 'Objective Physics' for competitions?", choices: ["DC Pandey", "HC Verma", "Resnick Halliday", "Pradeep"], answer: "DC Pandey" },
+  { question: "What is the duration of JEE Advanced exam?", choices: ["3 hours", "2 hours", "4 hours", "1 hour"], answer: "3 hours" },
+  { question: "Which competition test is conducted to get into Indian Statistical Institute?", choices: ["ISI entrance exam", "JEE", "CAT", "GATE"], answer: "ISI entrance exam" },
+  { question: "Who prepares the NCERT textbooks?", choices: ["National Council of Educational Research and Training", "National Centre for Examining Research and Training", "National Curriculum of Education and Research Training", "None of these"], answer: "National Council of Educational Research and Training" },
+  { question: "The term 'Aptitude' in competitions refers to:", choices: ["Ability to learn", "Academic score", "Physical strength", "Memory capacity"], answer: "Ability to learn" },
+  { question: "Which type of reasoning is tested in most competitive exams?", choices: ["Logical Reasoning", "Creative Writing", "Speech", "Driving Skills"], answer: "Logical Reasoning" },
+  { question: "Which book is famous for verbal ability in competitions?", choices: ["Word Power Made Easy", "Wren & Martin", "Objective English", "Advanced Grammar"], answer: "Word Power Made Easy" },
+  { question: "What is the minimum age to appear for UPSC civil services exam?", choices: ["21 years", "18 years", "25 years", "30 years"], answer: "21 years" },
+  { question: "What is the full form of CAT?", choices: ["Common Admission Test", "Competitive Aptitude Test", "Central Aptitude Test", "Common Aptitude Test"], answer: "Common Admission Test" },
+  { question: "Which type of questions is NOT common in competitive exams?", choices: ["MCQs", "Essay", "True/False", "Fill in the blanks"], answer: "Essay" },
+  { question: "For entrance into engineering colleges, the common lateral entry is in which year?", choices: ["2nd year", "1st year", "3rd year", "4th year"], answer: "2nd year" },
+  { question: "Which Indian exam is used for Masters in Business Administration admissions?", choices: ["CAT", "GATE", "JEE", "NEET"], answer: "CAT" },
+  { question: "Who is known as the ‘Father of Logical Reasoning’?", choices: ["Aristotle", "Rene Descartes", "Isaac Newton", "Albert Einstein"], answer: "Aristotle" },
+  { question: "Which government body conducts the SSC exams?", choices: ["Staff Selection Commission", "State Service Commission", "Secondary Service Commission", "Senior Staff Commission"], answer: "Staff Selection Commission" }
+];
+
+const container = document.getElementById('quiz');
+const scoreDiv = document.getElementById('result');
+const submitBtn = document.getElementById('submitBtn');
+
+function loadQuiz() {
+  container.innerHTML = '';
+  quizData.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+
+    let choicesHTML = q.choices.map(choice =>
+      `<label><input type="radio" name="q${index}" value="${choice}"> ${choice}</label>`
+    ).join('');
+    div.innerHTML = `<p>${index +1}. ${q.question}</p>${choicesHTML}`;
+    container.appendChild(div);
+  });
+}
+
+submitBtn.addEventListener('click', () => {
+  let score = 0;
+  document.querySelectorAll('.question-block').forEach(qblock => {
+    qblock.querySelectorAll('label').forEach(lbl => {
+      lbl.classList.remove('correct-label', 'incorrect-label');
+      lbl.style.color = '';
+    });
+  });
+
+  quizData.forEach((q, index) => {
+    const labels = document.querySelectorAll(`input[name="q${index}"]`);
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    labels.forEach(radio => {
+      radio.disabled = true;
+    });
+    if (selected) {
+      const label = selected.parentElement;
+      if (selected.value === q.answer) {
+        score++;
+        label.classList.add('correct-label');
+      } else {
+        label.classList.add('incorrect-label');
+        labels.forEach(r => {
+          if (r.value === q.answer) {
+            r.parentElement.classList.remove('incorrect-label');
+            r.parentElement.classList.add('correct-label');
+          }
+        });
+      }
+    } else {
+      labels.forEach(r => {
+        if (r.value === q.answer) {
+          r.parentElement.classList.add('correct-label');
+        }
+      });
+    }
+  });
+  scoreDiv.textContent = `Your Score: ${score} / ${quizData.length}`;
+  submitBtn.disabled = true;
+});
+
+loadQuiz();
+</script>
+</body>
+</html>

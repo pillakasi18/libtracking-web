@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Utility of Force - Strategy Books</title>
+  <style>
+    body {
+      background: #f6f7fa;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      text-align: center;
+      background: #3381ff;
+      color: #fff;
+      padding: 24px 0 18px 0;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 26px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      width: 240px;
+      padding: 18px;
+      text-align: center;
+      margin: 8px;
+      transition: box-shadow 0.4s;
+    }
+    .card img {
+      width: 85px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 8px;
+    }
+    .card a {
+      color: #3381ff;
+      text-decoration: underline;
+    }
+    .book-title {
+      margin: 6px 0 2px 0;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #222;
+    }
+    .book-author {
+      font-size: 0.99em;
+      color: #222;
+      margin-bottom: 2px;
+    }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+    }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">Utility of Force - Strategy Books</div>
+  <div class="container">
+
+    <div class="card">
+      <img src="utility_of_force_cover1.jpg" alt="The Utility of Force" />
+      <div class="book-title">The Utility of Force</div>
+      <a href="#">Rupert Smith</a>
+    <div class="price" onclick="toggleBuy(this)">₹620</div>
+    </div>
+
+    <div class="card">
+      <img src="modern_warfare_cover.jpg" alt="Modern Warfare" />
+      <div class="book-title">Modern Warfare</div>
+      <a href="#">Colin S. Gray</a>
+   <div class="price" onclick="toggleBuy(this)">₹580</div>
+    </div>
+
+    <div class="card">
+      <img src="contemporary_strategies_cover.jpg" alt="Contemporary Military Strategies" />
+      <div class="book-title">Contemporary Military Strategies</div>
+      <a href="#">John Lambert</a>
+      <div class="price" onclick="toggleBuy(this)">₹570</div>
+    </div>
+
+    <div class="card">
+      <img src="warfare_and_policy_cover.jpg" alt="Warfare and Policy" />
+      <div class="book-title">Warfare and Policy</div>
+      <a href="#">Peter Mansoor</a>
+      <div class="price" onclick="toggleBuy(this)">₹590</div>
+    </div>
+
+    <div class="card">
+      <img src="use_of_force_cover.jpg" alt="The Use of Force" />
+      <div class="book-title">The Use of Force</div>
+      <a href="#">Michael Walzer</a>
+       <div class="price" onclick="toggleBuy(this)">₹600</div>
+    </div>
+
+  </div>
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+  </script>
+</body>
+</html>

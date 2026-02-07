@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LibTracking - Online Book Store</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      color: #222;
+      margin-left: 240px;
+    }
+    #sidebar {
+      width: 240px;
+      background: #fff;
+      color: #222;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      border-right: 1px solid #ddd;
+      overflow-y: auto;
+      z-index: 1000;
+    }
+    #sidebar h3 {
+      font-weight: bold;
+      padding: 20px 18px 12px 24px;
+      font-size: 1.2em;
+      letter-spacing: .5px;
+    }
+    #sidebar ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    #sidebar ul li {
+      padding: 12px 26px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #sidebar ul li:hover {
+      background: #f2f6fa;
+      color: #3381ff;
+    }
+    header {
+      background: #fff;
+      padding: 20px 32px 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+    }
+    header h1 {
+      font-size: 2em;
+      font-weight: bold;
+      color: #3381ff;
+      margin: 0;
+    }
+    header nav {
+      display: flex;
+      gap: 28px;
+    }
+    header nav a {
+      color: #222;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05em;
+    }
+    header nav a:hover {
+      color: #3381ff;
+    }
+    #searchBar {
+      width: 380px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      margin-right: 40px;
+    }
+    .category-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin: 40px 32px 0 32px;
+      justify-content: flex-start;
+    }
+    .category-item {
+      text-align: center;
+      color: white;
+      cursor: pointer;
+      width: 120px;
+      border-radius: 10px;
+      background: #222;
+      padding: 12px 10px 14px 10px;
+      margin-bottom: 36px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      transition: background 0.3s;
+    }
+    .category-item:hover { background: #3381ff; }
+    .category-item img {
+      width: 88px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      background: #eee;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .category-item a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      display: block;
+      margin-top: 12px;
+      font-size: 1em;
+      letter-spacing: 0.5px;
+    }
+    .featured {
+      background: #fff;
+      margin: 60px 32px 32px 32px;
+      border-radius: 12px;
+      padding: 38px 30px 38px 30px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .featured h2 {
+      margin-bottom: 32px;
+    }
+    #topPicksContainer {
+      display: flex;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 38px;
+      margin-bottom: 18px;
+    }
+    .book-card {
+      width: 210px;
+      background: #fafafa;
+      border-radius: 16px;
+      text-align: center;
+      color: #030f15;
+      margin-bottom: 34px;
+      padding: 20px 10px 22px 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    }
+    .book-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+    .price {
+      margin-top: 14px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+      margin-bottom: 14px;
+    }
+    .buy-button {
+      font-size: 1em;
+      padding: 9px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .buy-button:hover {
+      background-color: #0056b3;
+    }
+    footer {
+      padding: 30px 36px 36px 36px;
+      background: #3381ff;
+      color: #fff;
+      margin-top: 50px;
+      margin-left: 0;
+    }
+    .footer-grid {
+      display: flex;
+      gap: 80px;
+      font-size: 1em;
+    }
+    .footer-grid div h4 {
+      margin-bottom: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+    .footer-grid a {
+      color: #fff;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 6px;
+      margin-top: 2px;
+    }
+    .footer-grid a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 900px) {
+      body { margin-left: 0; }
+      #sidebar { position: relative; width: 100%; height: auto; border-right: none; }
+      .featured, .category-bar { margin: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <h3>Category</h3>
+    <ul>
+      <li>Books</li>
+      <li>Action & Adventure</li>
+      <li>Arts, Film & Photography</li>
+      <li>Biographies, Diaries & True Accounts</li>
+      <li>Business & Economics</li>
+      <li>Children's Books</li>
+      <li>Comics & Mangas</li>
+      <li>Computers & Internet</li>
+      <li>Crafts, Hobbies & Home</li>
+      <li>Crime, Thriller & Mystery</li>
+      <li>Engineering</li>
+      <li>Exam Preparation</li>
+      <li>Health, Family & Personal Development</li>
+      <li>Health, Fitness & Nutrition</li>
+      <li>Historical Fiction</li>
+      <li>History</li>
+      <li>Humour</li>
+      <li>Language, Linguistics & Writing</li>
+      <li>Law</li>
+      <li>Literature & Fiction</li>
+      <li>Friction</li>
+      <li>Politics</li>
+      <li>Competition</li>
+    </ul>
+  </div>
+  <!-- Header -->
+  <header>
+    <h1>📚 LibTracking</h1>
+    <!-- Updated search bar with form (for NLP integration) -->
+    <form id="searchForm" style="display:inline;">
+      <input id="searchBar" type="text" placeholder="Search for books, authors, categories..." />
+      <button type="submit" style="display:none;">Search</button>
+    </form>
+    <nav>
+      <a href="login.html">Login</a>
+      <a href="#">My Books</a>
+      <a href="cart.html">Cart</a>
+      <a href="quiz.html">Quiz</a>
+    </nav>
+  </header>
+  <!-- Category Section -->
+  <section class="category-bar">
+    <div class="category-item">
+      <img src="https://www.rogerdooley.com/wp-content/uploads/2019/03/friction-3d-diy-2-576x800.png" alt="Friction"/>
+      <a href="friction.html">friction</a>
+    </div>
+    <div class="category-item">
+      <img src="https://th.bing.com/th/id/R.a9fefcd2b74f604967fbf7fdc665b43e?rik=aqhBdjRLk7satA&riu=http%3a%2f%2fimages-platform.99static.com%2fFP3F99cKJu4hnd53BczlwrCuqZA%3d%2f90x0%3a702x612%2ffit-in%2f99designs-contests-attachments%2f32%2f32889%2fattachment_32889952&ehk=IyG3OTC3KqBt9uJO8g26CRIQp6Bmxye6qwdDPtLKFK0%3d&risl=&pid=ImgRaw&r=0" alt="novel"/>
+      <a href="novel.html">novel</a>
+    </div>
+    <div class="category-item">
+      <img src="https://image.shutterstock.com/image-vector/business-book-logo-600w-711210949.jpg" alt="business"/>
+      <a href="business.html">business</a>
+    </div>
+    <div class="category-item">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.E_evQUnKIW40BYVeIxdCNgHaF1?cb=thvnextc2&rs=1&pid=ImgDetMain&o=7&rm=3" alt="comics"/>
+      <a href="comics.html">comics</a>
+    </div>
+    <div class="category-item">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.mqj0cGbY-i4muVBHymvJSQHaH0?cb=thvnextc2&rs=1&pid=ImgDetMain&o=7&rm=3" alt="politics"/>
+      <a href="politician.html">politics</a>
+    </div>
+    <div class="category-item">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.-4Q8fM6rHzPGVNNom8XYoQHaEM?cb=thvnextc2&rs=1&pid=ImgDetMain&o=7&rm=3" alt="competition"/>
+      <a href="competion.html">competition</a>
+    </div>
+    <div class="category-item">
+      <img src="https://bing.com/th/id/OIP.t-4T92ONkmu4ennM1ptLOAAAAA?o=7&cb=thvnextc2rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="engineering"/>
+      <a href="engineering.html">engineering</a>
+    </div>
+  </section>
+  <!-- Featured Section with Books -->
+  <section class="featured">
+    <h2>Top Picks for You</h2>
+    <div id="topPicksContainer">
+      <div class="book-card">
+        <img src="https://nightcapbooks.com/wp-content/uploads/2019/03/20190418thesilentpatient.jpg" alt="Book"/>
+        <h4>The Silent Patient</h4>
+        <div class="price">₹199</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71UwSHSZRnS.jpg" alt="Book"/>
+        <h4>Atomic Habits</h4>
+        <div class="price">₹289</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71g2ednj0JL.jpg" alt="Book"/>
+        <h4>It Ends With Us</h4>
+        <div class="price">₹350</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71E5zB1qbIL.jpg" alt="Book"/>
+        <h4>Wings of Fire</h4>
+        <div class="price">₹180</div>
+        <button class="buy-button">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+  <!-- NLP Search Results Container (added for integration) -->
+  <div id="results" style="margin: 32px 32px 0 240px; font-size: 1.1em; color: #3381ff;"></div>
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>About</h4>
+        <a href="contact.html">Contact us</a>
+        <a href="about.html">About us</a>
+      </div>
+      <div>
+        <h4>Help</h4>
+        <a href="payments.html">Payments</a>
+        <a href="shipping.html">Shipping</a>
+      </div>
+      <div>
+        <h4>Policy</h4>
+        <a href="return.html">Return Policy</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+    </div>
+  </footer>
+  <!-- JS for NLP search connection -->
+  <script>
+  document.getElementById('searchForm').onsubmit = async function(e) {
+    e.preventDefault();
+    const query = document.getElementById('searchBar').value;
+    if (!query.trim()) return;
+    document.getElementById('results').innerText = "Searching…";
+    try {
+      const resp = await fetch('http://localhost:5000/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+      });
+      const data = await resp.json();
+      if (data.results && data.results.length > 0) {
+        let html = "<strong>Search Results:</strong><br>";
+        data.results.forEach(book => {
+          html += `Title: <b>${book.title}</b> &nbsp;|&nbsp; Author: <b>${book.author}</b><br>`;
+        });
+        document.getElementById('results').innerHTML = html;
+      } else {
+        document.getElementById('results').innerHTML = "<span style='color:#d33'>No books found.</span>";
+      }
+    } catch (err) {
+      document.getElementById('results').innerHTML = "<span style='color:#d33'>Error connecting to server.</span>";
+    }
+  };
+  </script>
+</body>
+</html>

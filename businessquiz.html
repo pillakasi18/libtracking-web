@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Business Quiz - LibTracking</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h2 {
+    color: #3381ff;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .question-block {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  }
+  .question-block p {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .correct-label {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect-label {
+    color: red;
+    font-weight: bold;
+  }
+  #submitBtn {
+    display: block;
+    margin: 30px auto;
+    background: #3381ff;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background: #0056b3;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #3381ff;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Business Quiz - 20 Questions</h2>
+<div id="quiz"></div>
+<button id="submitBtn">Submit Quiz</button>
+<div id="result"></div>
+
+<script>
+const quizData = [
+  { question: "Who is the author of 'Rich Dad Poor Dad'?", choices: ["Robert Kiyosaki", "Peter Drucker", "Napoleon Hill", "Dale Carnegie"], answer: "Robert Kiyosaki" },
+  { question: "Who wrote 'The Lean Startup'?", choices: ["Eric Ries", "Simon Sinek", "Jim Collins", "Stephen Covey"], answer: "Eric Ries" },
+  { question: "What does 'ROI' stand for in business?", choices: ["Return on Investment", "Rate of Interest", "Revenue of Industries", "Risk of Inflation"], answer: "Return on Investment" },
+  { question: "Who is known as the 'Father of Scientific Management'?", choices: ["Frederick Taylor", "Henry Ford", "Elon Musk", "Walt Disney"], answer: "Frederick Taylor" },
+  { question: "What is a 'IPO'?", choices: ["Initial Public Offering", "International Purchase Order", "Investment Portfolio Option", "Income Payment Option"], answer: "Initial Public Offering" },
+  { question: "Which company is known for 'Just-In-Time' inventory?", choices: ["Toyota", "Apple", "Microsoft", "Amazon"], answer: "Toyota" },
+  { question: "What do the letters 'CEO' stand for?", choices: ["Chief Executive Officer", "Corporate Executive Officer", "Chief Energy Officer", "Central Executive Operator"], answer: "Chief Executive Officer" },
+  { question: "Which business concept refers to dividing customers into segments?", choices: ["Market Segmentation", "Branding", "Supply Chain", "Target Modeling"], answer: "Market Segmentation" },
+  { question: "Who wrote 'Good to Great'?", choices: ["Jim Collins", "Peter Drucker", "Michael Porter", "Philip Kotler"], answer: "Jim Collins" },
+  { question: "What is 'SWOT' analysis?", choices: ["Strengths, Weaknesses, Opportunities, Threats", "Sales With Outstanding Targets", "Strategy With Operational Tactics", "Supply, Work, Output, Time"], answer: "Strengths, Weaknesses, Opportunities, Threats" },
+  { question: "Which economist is famous for the theory of 'Comparative Advantage'?", choices: ["David Ricardo", "Adam Smith", "John Maynard Keynes", "Milton Friedman"], answer: "David Ricardo" },
+  { question: "What does 'B2B' mean?", choices: ["Business to Business", "Back to Back", "Business to Buyer", "Brand to Brand"], answer: "Business to Business" },
+  { question: "What term describes a company’s unique advantage over competitors?", choices: ["Competitive Advantage", "Market Share", "Cost Leadership", "Differentiation"], answer: "Competitive Advantage" },
+  { question: "Who founded Microsoft?", choices: ["Bill Gates", "Steve Jobs", "Mark Zuckerberg", "Larry Page"], answer: "Bill Gates" },
+  { question: "Which term refers to reducing costs by producing goods in large quantities?", choices: ["Economies of Scale", "Market Penetration", "Product Differentiation", "Brand Loyalty"], answer: "Economies of Scale" },
+  { question: "What is a 'business model'?", choices: ["Plan for making money", "Type of marketing", "Company logo", "Brand slogan"], answer: "Plan for making money" },
+  { question: "What does 'CRM' stand for?", choices: ["Customer Relationship Management", "Corporate Resource Management", "Collateral Risk Management", "Customer Revenue Metric"], answer: "Customer Relationship Management" },
+  { question: "What is a 'stakeholder'?", choices: ["Person or group with interest in business", "A competitor", "A customer", "An employee"], answer: "Person or group with interest in business" },
+  { question: "Who wrote 'The Art of War', often applied to business strategy?", choices: ["Sun Tzu", "Napoleon Hill", "Dale Carnegie", "Peter Drucker"], answer: "Sun Tzu" },
+  { question: "What is 'Kaizen'?", choices: ["Continuous improvement philosophy", "Market research method", "Financial auditing tool", "Advertising strategy"], answer: "Continuous improvement philosophy" }
+];
+
+const container = document.getElementById('quiz');
+const scoreDiv = document.getElementById('result');
+const submitBtn = document.getElementById('submitBtn');
+
+function loadQuiz() {
+  container.innerHTML = '';
+  quizData.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+
+    let choicesHTML = q.choices.map(choice => 
+      `<label><input type="radio" name="q${index}" value="${choice}"> ${choice}</label>`
+    ).join('');
+    div.innerHTML = `<p>${index + 1}. ${q.question}</p>${choicesHTML}`;
+    container.appendChild(div);
+  });
+}
+
+submitBtn.addEventListener('click', () => {
+  let score = 0;
+  // Clear previous highlight
+  document.querySelectorAll('.question-block').forEach(qblock => {
+    qblock.querySelectorAll('label').forEach(lbl => {
+      lbl.classList.remove('correct-label', 'incorrect-label');
+      lbl.style.color = '';
+    });
+  });
+
+  quizData.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const labels = document.querySelectorAll(`input[name="q${index}"]`);
+    labels.forEach(radio => { radio.disabled = true; });
+    if (selected) {
+      const label = selected.parentElement;
+      if (selected.value === q.answer) {
+        score++;
+        label.classList.add('correct-label');
+      } else {
+        label.classList.add('incorrect-label');
+        // Highlight correct
+        labels.forEach(r => {
+          if (r.value === q.answer) {
+            r.parentElement.classList.remove('incorrect-label');
+            r.parentElement.classList.add('correct-label');
+          }
+        });
+      }
+    } else {
+      // no answer selected, highlight correct answer
+      labels.forEach(r => {
+        if (r.value === q.answer) {
+          r.parentElement.classList.add('correct-label');
+        }
+      });
+    }
+  });
+
+  scoreDiv.textContent = `Your Score: ${score} / ${quizData.length}`;
+  submitBtn.disabled = true;
+});
+
+loadQuiz();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Enter OTP</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .otp-box {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .otp-box h2 {
+      margin-bottom: 20px;
+    }
+
+    .otp-inputs input {
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      text-align: center;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .otp-box button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2874f0;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .otp-box button:hover {
+      background-color: #1a5dcc;
+    }
+  </style>
+</head>
+<body>
+
+  <form class="otp-box" action="index2.html" method="get">
+    <h2>Enter OTP</h2>
+    <div class="otp-inputs">
+      <input type="text" name="otp1" maxlength="1" required>
+      <input type="text" name="otp2" maxlength="1" required>
+      <input type="text" name="otp3" maxlength="1" required>
+      <input type="text" name="otp4" maxlength="1" required>
+    </div>
+    <button type="submit">Verify</button>
+  </form>
+
+</body>
+</html>

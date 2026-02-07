@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Engineering and Computer Science Books</title>
+  <style>
+    body {
+      background: #f6f7fa;
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+    }
+    .header {
+      background: #3381ff;
+      color: white;
+      text-align: center;
+      padding: 24px 0 18px 0;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .section-header {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 1.8em;
+      color: #3381ff;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 26px;
+    }
+    .card {
+      width: 240px;
+      background: white;
+      padding: 18px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      text-align: center;
+      cursor: default;
+    }
+    .card img {
+      width: 85px;
+      height: 120px;
+      border-radius: 5px;
+      object-fit: cover;
+      margin-bottom: 8px;
+    }
+    .book-title {
+      font-weight: bold;
+      font-size: 1.1em;
+      color: #222;
+      margin: 6px 0 2px 0;
+    }
+    .card a {
+      color: #3381ff;
+      text-decoration: underline;
+    }
+    .price {
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 20px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">Engineering and Computer Science Books</div>
+
+  <div class="section-header">Engineering Books</div>
+  <div class="container">
+    <div class="card">
+      <img src="engineering_mechanics.jpg" alt="Engineering Mechanics" />
+      <div class="book-title">Engineering Mechanics</div>
+      <a href="#">J.L. Meriam</a>
+      <div class="price" onclick="toggleBuy(this)">₹750</div>
+    </div>
+    <div class="card">
+      <img src="thermodynamics.jpg" alt="Thermodynamics" />
+      <div class="book-title">Thermodynamics</div>
+      <a href="#">Yunus A. Çengel</a>
+      <div class="price" onclick="toggleBuy(this)">₹850</div>
+    </div>
+    <div class="card">
+      <img src="electrical_circuits.jpg" alt="Electrical Circuits" />
+      <div class="book-title">Electrical Circuits</div>
+      <a href="#">J. David Irwin</a>
+      <div class="price" onclick="toggleBuy(this)">₹650</div>
+    </div>
+    <div class="card">
+      <img src="fluid_mechanics.jpg" alt="Fluid Mechanics" />
+      <div class="book-title">Fluid Mechanics</div>
+      <a href="#">Frank M. White</a>
+      <div class="price" onclick="toggleBuy(this)">₹780</div>
+    </div>
+  </div>
+  
+  <div class="section-header">Computer Science Books</div>
+  <div class="container">
+    <div class="card">
+      <img src="computer_networks.jpg" alt="Computer Networks" />
+      <div class="book-title">Computer Networks</div>
+      <a href="#">Andrew S. Tanenbaum</a>
+      <div class="price" onclick="toggleBuy(this)">₹650</div>
+    </div>
+    <div class="card">
+      <img src="algorithms_cover.jpg" alt="Introduction to Algorithms" />
+      <div class="book-title">Introduction to Algorithms</div>
+      <a href="#">Cormen, Leiserson, Rivest & Stein</a>
+      <div class="price" onclick="toggleBuy(this)">₹1200</div>
+    </div>
+    <div class="card">
+      <img src="operating_systems.jpg" alt="Operating Systems" />
+      <div class="book-title">Operating Systems</div>
+      <a href="#">Abraham Silberschatz</a>
+      <div class="price" onclick="toggleBuy(this)">₹750</div>
+    </div>
+    <div class="card">
+      <img src="database_systems.jpg" alt="Database System Concepts" />
+      <div class="book-title">Database System Concepts</div>
+      <a href="#">Abraham Silberschatz</a>
+      <div class="price" onclick="toggleBuy(this)">₹700</div>
+    </div>
+  </div>
+
+  <script>
+    function toggleBuy(elem) {
+      if (elem.innerHTML === 'Buy') {
+        elem.innerHTML = elem.getAttribute('data-price');
+      } else {
+        elem.setAttribute('data-price', elem.innerHTML);
+        elem.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to Purchase or Cart page...');
+    }
+  </script>
+
+</body>
+</html>

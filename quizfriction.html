@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Fiction Quiz - LibTracking</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h2 {
+    color: #3381ff;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .question-block {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+  }
+  .question-block p {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  /* Styles for correct and incorrect feedback */
+  .correct-label {
+    color: green;
+    font-weight: bold;
+  }
+  .incorrect-label {
+    color: red;
+    font-weight: bold;
+  }
+  #submitBtn {
+    display: block;
+    margin: 30px auto;
+    background: #3381ff;
+    color: white;
+    padding: 14px 28px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #submitBtn:hover {
+    background: #0056b3;
+  }
+  #result {
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #3381ff;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h2>Fiction Quiz - 20 Questions</h2>
+
+<div id="quiz"></div>
+
+<button id="submitBtn">Submit Quiz</button>
+
+<div id="result"></div>
+
+<script>
+const quizData = [
+  { question: "Who wrote 'The Silent Patient'?", choices: ["Alex Michaelides", "Gillian Flynn", "Paula Hawkins", "Stephen King"], answer: "Alex Michaelides" },
+  { question: "Which genre does 'The Silent Patient' belong to?", choices: ["Thriller", "Romance", "Science Fiction", "Business"], answer: "Thriller" },
+  { question: "In '1984', what is the name of the oppressive regime?", choices: ["Big Brother", "The Party", "The Ministry", "Thought Police"], answer: "The Party" },
+  { question: "Who is the author of 'To Kill a Mockingbird'?", choices: ["Harper Lee", "Mark Twain", "F. Scott Fitzgerald", "Ernest Hemingway"], answer: "Harper Lee" },
+  { question: "What is the main theme of 'The Great Gatsby'?", choices: ["The American Dream", "War", "Mystery", "Adventure"], answer: "The American Dream" },
+  { question: "Who wrote 'Pride and Prejudice'?", choices: ["Jane Austen", "Emily Brontë", "Charles Dickens", "Mark Twain"], answer: "Jane Austen" },
+  { question: "Which novel features the character 'Atticus Finch'?", choices: ["To Kill a Mockingbird", "The Grapes of Wrath", "Of Mice and Men", "The Catcher in the Rye"], answer: "To Kill a Mockingbird" },
+  { question: "What is the setting of 'Moby Dick'?", choices: ["The Sea", "The Desert", "A Village", "A City"], answer: "The Sea" },
+  { question: "Who wrote 'The Catcher in the Rye'?", choices: ["J.D. Salinger", "John Steinbeck", "William Faulkner", "Ernest Hemingway"], answer: "J.D. Salinger" },
+  { question: "What is the narrative perspective of 'The Great Gatsby'?", choices: ["First-person", "Third-person", "Second-person", "Omniscient"], answer: "First-person" },
+  { question: "Who is the protagonist in 'Jane Eyre'?", choices: ["Jane Eyre", "Elizabeth Bennet", "Catherine Earnshaw", "Anna Karenina"], answer: "Jane Eyre" },
+  { question: "What is the genre of 'Frankenstein'?", choices: ["Gothic horror", "Romance", "Science Fiction", "Mystery"], answer: "Gothic horror" },
+  { question: "Who wrote 'Dracula'?", choices: ["Bram Stoker", "Mary Shelley", "Edgar Allan Poe", "Stephen King"], answer: "Bram Stoker" },
+  { question: "Which author created 'Sherlock Holmes'?", choices: ["Arthur Conan Doyle", "Agatha Christie", "Edgar Allan Poe", "J.K. Rowling"], answer: "Arthur Conan Doyle" },
+  { question: "What is the primary setting of 'Lord of the Flies'?", choices: ["An island", "A city", "A spaceship", "A school"], answer: "An island" },
+  { question: "Who wrote 'The Hobbit'?", choices: ["J.R.R. Tolkien", "C.S. Lewis", "George R.R. Martin", "Terry Pratchett"], answer: "J.R.R. Tolkien" },
+  { question: "In which book does the character 'Holden Caulfield' appear?", choices: ["The Catcher in the Rye", "The Great Gatsby", "Catcher in the Rye", "Fight Club"], answer: "The Catcher in the Rye" },
+  { question: "What is the theme of 'Brave New World'?", choices: ["Dystopia", "Romance", "Adventure", "Biography"], answer: "Dystopia" },
+  { question: "Who wrote 'Animal Farm'?", choices: ["George Orwell", "Aldous Huxley", "William Golding", "Ray Bradbury"], answer: "George Orwell" },
+  { question: "Which novel is written by Leo Tolstoy?", choices: ["War and Peace", "Crime and Punishment", "Anna Karenina", "The Brothers Karamazov"], answer: "War and Peace" }
+];
+
+const container = document.getElementById('quiz');
+
+function loadQuiz() {
+  container.innerHTML = '';
+  quizData.forEach((q, index) => {
+    const div = document.createElement('div');
+    div.className = 'question-block';
+    let choicesHTML = q.choices.map(choice => 
+      `<label><input type="radio" name="q${index}" value="${choice}"> ${choice}</label>`
+    ).join('');
+    div.innerHTML = `<p>${index+1}. ${q.question}</p>${choicesHTML}`;
+    container.appendChild(div);
+  });
+}
+
+document.getElementById('submitBtn').onclick = () => {
+  let score = 0;
+  // First, clear previous feedback
+  document.querySelectorAll('.question-block').forEach(qblock => {
+    // remove previous highlight classes
+    qblock.querySelectorAll('label').forEach(lbl => {
+      lbl.classList.remove('correct-label', 'incorrect-label');
+      // reset colors in inline style if any
+      lbl.style.color = '';
+    });
+  });
+  
+  // Check answers
+  quizData.forEach((q, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    const labels = document.querySelectorAll(`input[name="q${index}"]`);
+    labels.forEach(radio => {
+      // disable all radios after submit
+      radio.disabled = true;
+    });
+    if (selected) {
+      const label = selected.parentElement;
+      if (selected.value === q.answer) {
+        score++;
+        label.classList.add('correct-label');
+      } else {
+        label.classList.add('incorrect-label');
+        // highlight correct answer in green
+        const correctLabels = document.querySelectorAll(`input[name="q${index}"]`);
+        correctLabels.forEach(r => {
+          if (r.value === q.answer) {
+            r.parentElement.classList.remove('incorrect-label');
+            r.parentElement.classList.add('correct-label');
+          }
+        });
+      }
+    } else {
+      // No answer selected: highlight correct answer
+      const correctAnswers = document.querySelectorAll(`input[name="q${index}"][value="${q.answer}"]`);
+      correctAnswers.forEach(r => r.parentElement.classList.add('correct-label'));
+    }
+  });
+  document.getElementById('result').innerText = `Your Score: ${score} / ${quizData.length}`;
+  
+  // disable submit button
+  document.getElementById('submitBtn').disabled = true;
+};
+
+loadQuiz();
+</script>
+</body>
+</html>

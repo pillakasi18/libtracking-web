@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LibTracking - Register</title>
+  <style>
+    body {
+      background-color: #f1f3f6;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #2874f0;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1a5dcc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Register</h2>
+    <input type="text" id="userInput" placeholder="Enter Email or Phone" required>
+    <button onclick="sendFakeOTP()">Request OTP</button>
+  </div>
+
+  <script>
+    function sendFakeOTP() {
+      const input = document.getElementById('userInput').value.trim();
+      if (input === "") {
+        alert("Please enter your email or mobile number.");
+      } else {
+        // Store user input in localStorage (simulate session)
+        localStorage.setItem("userInput", input);
+        localStorage.setItem("otp", "1234"); // Fake OTP
+        window.location.href = "otp.html";
+      }
+    }
+  </script>
+
+</body>
+</html>

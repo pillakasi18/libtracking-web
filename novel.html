@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LibTracking - Novels</title>
+  <style>
+    body { font-family: Arial; background-color: #f1f3f6; margin: 0; }
+    header { background: #2874f0; color: white; padding: 20px; text-align: center; }
+    .books-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; padding: 20px; }
+    .book-card {
+      background: white; padding: 10px; width: 200px; border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center;
+    }
+    .book-card img { width: 100%; height: 250px; object-fit: cover; border-radius: 5px; }
+    .book-card h4 { margin: 10px 0 5px; font-size: 16px; }
+    .book-card p { margin: 0; color: green; font-weight: bold; }
+     .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  
+  </style>
+</head>
+<body>
+  <header><h1>📘 Novels - LibTracking</h1></header>
+  <div class="books-row">
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/81-YdN7rF2L.jpg" alt="The Alchemist">
+      <h4>The Alchemist</h4>
+     <div class="price" onclick="toggleBuy(this)">₹299</div>
+     
+  
+    </div>
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/81AFhcH4lAL.jpg" alt="Verity">
+      <h4>Verity</h4>
+      <div class="price" onclick="toggleBuy(this)">₹210</div>
+  
+    </div>
+    <div class="book-card">
+      <img src="https://m.media-amazon.com/images/I/713jIoMO3UL.jpg" alt="The Fault in Our Stars">
+      <h4>The Fault in Our Stars</h4>
+      <div class="price" onclick="toggleBuy(this)">₹370</div>
+  
+    </div>
+  </div>
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+  </script>
+</body>
+</html>

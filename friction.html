@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Silent Patient - LibTracking</title>
+  <link rel="stylesheet" href="style0.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+    .product-container {
+      display: flex;
+      padding: 20px;
+      background-color: white;
+      margin: 30px;
+      border-radius: 10px;
+    }
+    .product-image {
+      flex: 1;
+      padding: 10px;
+    }
+    .product-image img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+    }
+    .product-details {
+      flex: 2;
+      padding: 20px;
+    }
+    .product-details h2 {
+      margin-top: 0;
+    }
+    .price {
+      color: green;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .description {
+      margin-top: 10px;
+    }
+    .btns {
+      margin-top: 20px;
+    }
+    .btns button,
+    .book-card button.buy-button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      background-color: orange;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    .btns button:hover,
+    .book-card button.buy-button:hover {
+      background-color: #cc7a00;
+    }
+    .related-section {
+      margin: 20px;
+    }
+    .related-books {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .book-card {
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      width: 180px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .book-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .book-card button.buy-button {
+      width: 100%;
+      margin-top: 8px;
+      background-color: #3381ff;
+    }
+    .book-card button.buy-button:hover {
+      background-color: #0056b3;
+    }
+    .quiz-section button {
+  background: #3381ff;
+  color: white;
+  font-size: 16px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-left: 8px;
+}
+.quiz-section button:hover {
+  background: #0056b3;
+}
+
+  </style>
+</head>
+<body>
+  <div class="product-container">
+    <div class="product-image">
+      <img src="https://nightcapbooks.com/wp-content/uploads/2019/03/20190418thesilentpatient.jpg" alt="The Silent Patient" />
+    </div>
+    <div class="product-details">
+      <h2>The Silent Patient</h2>
+      <p>by Alex Michaelides</p>
+      <div
+        class="price"
+        data-title="The Silent Patient"
+        data-price="199"
+        onclick="toggleBuy(this)"
+      >
+        ₹199
+      </div>
+      <div class="quiz-section">
+  <img src="https://cdn-icons-png.flaticon.com/512/3064/3064155.png" alt="Quiz Logo" height="10" width="10">
+  <a href="quizfriction.html" target="_blank" style="text-decoration:none;display:inline-block;">
+    <button>Take the Quiz</button>
+  </a>
+</div>
+
+      
+      <div class="description">
+        A shocking psychological thriller of a woman’s act of violence against her husband—and of the therapist obsessed with uncovering her motive.
+      </div>
+      <div class="btns">
+        <button
+          class="add-to-cart"
+          data-title="The Silent Patient"
+          data-price="199"
+          onclick="addToCartFromElement(this)"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="related-section">
+    <h3>Related Fiction Books</h3>
+    <div class="related-books">
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71UwSHSZRnS.jpg" alt="Atomic Habits" />
+        <h4>Atomic Habits</h4>
+        <div
+          class="price"
+          data-title="Atomic Habits"
+          data-price="299"
+          onclick="toggleBuy(this)"
+          >₹299</div
+        >
+        <button
+          class="buy-button"
+          data-title="Atomic Habits"
+          data-price="299"
+          onclick="addToCartFromElement(this)"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71g2ednj0JL.jpg" alt="It Ends With Us" />
+        <h4>It Ends With Us</h4>
+        <div
+          class="price"
+          data-title="It Ends With Us"
+          data-price="350"
+          onclick="toggleBuy(this)"
+          >₹350</div
+        >
+        <button
+          class="buy-button"
+          data-title="It Ends With Us"
+          data-price="350"
+          onclick="addToCartFromElement(this)"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71E5zB1qbIL.jpg" alt="Wings of Fire" />
+        <h4>Wings of Fire</h4>
+        <div
+          class="price"
+          data-title="Wings of Fire"
+          data-price="180"
+          onclick="toggleBuy(this)"
+          >₹180</div
+        >
+        <button
+          class="buy-button"
+          data-title="Wings of Fire"
+          data-price="180"
+          onclick="addToCartFromElement(this)"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/41qtjYbgrbL._SL500_.jpg" alt="Verity" />
+        <h4>Verity</h4>
+        <div
+          class="price"
+          data-title="Verity"
+          data-price="330"
+          onclick="toggleBuy(this)"
+          >₹330</div
+        >
+        <button
+          class="buy-button"
+          data-title="Verity"
+          data-price="330"
+          onclick="addToCartFromElement(this)"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/71aFt4+OTOL.jpg" alt="The Alchemist" />
+        <h4>The Alchemist</h4>
+        <div
+          class="price"
+          data-title="The Alchemist"
+          data-price="299"
+          onclick="toggleBuy(this)"
+          >₹299</div
+        >
+        <button
+          class="buy-button"
+          data-title="The Alchemist"
+          data-price="299"
+          onclick="addToCartFromElement(this)"
+        >
+          Add to Cart
+        </button>
+      </div>
+      <div class="book-card">
+        <img src="https://m.media-amazon.com/images/I/61Iz2yy2CKL.jpg" alt="The Girl on the Train" />
+        <h4>The Girl on the Train</h4>
+        <div
+          class="price"
+          data-title="The Girl on the Train"
+          data-price="270"
+          onclick="toggleBuy(this)"
+          >₹270</div
+        >
+        <button
+          class="buy-button"
+          data-title="The Girl on the Train"
+          data-price="270"
+          onclick="addToCartFromElement(this)"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === "Buy") {
+        element.innerHTML = element.getAttribute("data-price");
+      } else {
+        element.setAttribute("data-price", priceText);
+        element.innerHTML =
+          '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert("Redirecting to purchase page or cart...");
+      // You can replace above alert with actual purchase or cart redirection code
+    }
+
+    function addToCartFromElement(element) {
+      const title = element.getAttribute("data-title");
+      const price = parseInt(element.getAttribute("data-price"));
+      if (!title || !price) {
+        alert("Invalid product info");
+        return;
+      }
+
+      let cart = JSON.parse(localStorage.getItem("libtrackingCart") || "[]");
+      cart.push({ title, price });
+      localStorage.setItem("libtrackingCart", JSON.stringify(cart));
+      alert(`${title} added to cart!`);
+    }
+  </script>
+</body>
+</html>

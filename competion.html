@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>More Competition & Strategy Books</title>
+  <style>
+    body {
+      background: #f6f7fa;
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+    }
+    .header {
+      text-align: center;
+      background: #3381ff;
+      color: white;
+      padding: 24px 0 18px 0;
+      font-size: 2em;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 30px 0;
+      gap: 26px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+      width: 240px;
+      padding: 18px;
+      text-align: center;
+      cursor: default;
+    }
+    .card img {
+      width: 85px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 8px;
+    }
+    .card a {
+      color: #3381ff;
+      text-decoration: underline;
+    }
+    .book-title {
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #222;
+      margin: 6px 0 2px 0;
+    }
+    .price {
+      margin-top: 10px;
+      font-weight: bold;
+      color: green;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    button.buy-button {
+      font-size: 1em;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 6px;
+      background-color: #3381ff;
+      color: white;
+      cursor: pointer;
+    }
+    button.buy-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">More Competition & Strategy Books</div>
+  <div class="container">
+
+    <div class="card">
+      <img src="competitive_strategy_cover.jpg" alt="Competitive Strategy" />
+      <div class="book-title">Competitive Strategy</div>
+      <a href="#">Michael E. Porter</a>
+      <div class="price" onclick="toggleBuy(this)">₹999</div>
+    </div>
+
+    <div class="card">
+      <img src="lean_startup_cover.jpg" alt="The Lean Startup" />
+      <div class="book-title">The Lean Startup</div>
+      <a href="#">Eric Ries</a>
+      <div class="price" onclick="toggleBuy(this)">₹850</div>
+    </div>
+
+    <div class="card">
+      <img src="quantitative_aptitude_cover.jpg" alt="Quantitative Aptitude" />
+      <div class="book-title">Quantitative Aptitude</div>
+      <a href="#">R.S. Aggarwal</a>
+      <div class="price" onclick="toggleBuy(this)">₹399</div>
+    </div>
+
+    <div class="card">
+      <img src="blue_ocean_strategy_cover.jpg" alt="Blue Ocean Strategy" />
+      <div class="book-title">Blue Ocean Strategy</div>
+      <a href="#">W. Chan Kim & Renée Mauborgne</a>
+      <div class="price" onclick="toggleBuy(this)">₹750</div>
+    </div>
+
+    <div class="card">
+      <img src="good_strategy_bad_strategy_cover.jpg" alt="Good Strategy Bad Strategy" />
+      <div class="book-title">Good Strategy Bad Strategy</div>
+      <a href="#">Richard Rumelt</a>
+      <div class="price" onclick="toggleBuy(this)">₹680</div>
+    </div>
+
+    <div class="card">
+      <img src="team_competitions_cover.jpg" alt="Team Competitions Guide" />
+      <div class="book-title">Team Competitions Guide</div>
+      <a href="#">Jane Doe</a>
+      <div class="price" onclick="toggleBuy(this)">₹350</div>
+    </div>
+
+    <div class="card">
+      <img src="business_rivalry_cover.jpg" alt="The Art of Business Wars" />
+      <div class="book-title">The Art of Business Wars</div>
+      <a href="#">David Brown</a>
+      <div class="price" onclick="toggleBuy(this)">₹499</div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleBuy(element) {
+      const priceText = element.textContent.trim();
+      if (priceText === 'Buy') {
+        element.innerHTML = element.getAttribute('data-price');
+      } else {
+        element.setAttribute('data-price', priceText);
+        element.innerHTML = '<button class="buy-button" onclick="buyNow(event)">Buy</button>';
+      }
+    }
+    function buyNow(event) {
+      event.stopPropagation();
+      alert('Redirecting to purchase page or cart...');
+    }
+  </script>
+</body>
+</html>
