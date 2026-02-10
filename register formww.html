@@ -104,7 +104,6 @@
   </style>
 </head>
 <body>
-
   <div class="login-container">
     <div class="login-left">
       <h2>Registration Form</h2>
@@ -130,11 +129,31 @@
 <script>
   document.getElementById('registerForm').addEventListener('submit', function(event) {
     event.preventDefault();
+    
     let val = document.getElementById('emailOrPhone').value.trim();
+    let msg = document.getElementById('msg');
+    
+
+    msg.textContent = '';
+    msg.className = 'info-msg';
+    
     if (!val) {
-      document.getElementById('msg').textContent = 'Please enter email or mobile number';
+      msg.textContent = 'Please enter email or mobile number';
       return;
     }
+    
+   
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    const phoneRegex = /^(\+91[1-9]\d{9}|0?[6-9]\d{9})$/;
+    
+ 
+    if (!emailRegex.test(val) && !phoneRegex.test(val)) {
+      msg.textContent = 'Please enter VALID email address OR Indian mobile number';
+      return;
+    }
+    
+  
     window.location.href = "otp form.html";
   });
 </script>
